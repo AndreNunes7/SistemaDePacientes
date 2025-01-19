@@ -68,6 +68,11 @@ As ações de editar e excluir são realizadas por meio de JavaScript, com modai
 - O modal de edição permite modificar os campos: Nome do Médico, Data de Internação e Telefone de Contato.
 - Após a edição ou exclusão, a página será automaticamente atualizada para refletir as alterações.
 
+![image](https://github.com/user-attachments/assets/3ccb10b7-2e38-43cd-a711-f585e003b01e)
+
+![image](https://github.com/user-attachments/assets/9ec5aaf7-1782-48cf-8cce-b3a673d09837)
+
+
 ## Contribuições
 
 Contribuições são bem-vindas! Se você deseja melhorar o projeto, pode abrir uma **pull request** ou sugerir novas funcionalidades.
