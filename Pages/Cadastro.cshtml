@@ -1,0 +1,116 @@
+﻿@page
+@model CadastroModel
+@{
+    ViewData["Title"] = "Cadastro de Pacientes";
+}
+
+<div class="container mt-5">
+    <h2>Cadastro de Pacientes</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="chave">Chave (6 dígitos):</label>
+            <input type="number" class="form-control" id="chave" name="Chave" required maxlength="6" min="100000" max="999999">
+        </div>
+        <div class="form-group">
+            <label for="nomeMedico">Nome do Médico:</label>
+            <input type="text" class="form-control" id="nomeMedico" name="NomeDoMedico" required>
+        </div>
+        <div class="form-group">
+            <label for="dataInternacao">Data de Internação:</label>
+            <input type="date" class="form-control" id="dataInternacao" name="DataInternacao" required>
+        </div>
+        <div class="form-group">
+            <label for="telefoneContato">Telefone de Contato:</label>
+            <input type="tel" class="form-control" id="telefoneContato" name="TelefoneContato" required pattern="[0-9]{10,11}">
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+    <br />
+
+    <div class="form-group">
+        <label for="search">Pesquisar Pacientes:</label>
+        <div style="display: flex; align-items: center; margin-top: 5px;">
+            <input type="number" class="form-control" id="search" placeholder="Digite a chave do paciente" style="width: 250px; margin-right: 10px;">
+            <button class="btn btn-primary" onclick="buscarPaciente()">Buscar</button>
+        </div>
+    </div>
+
+
+    <h3 class="mt-5">Pacientes Cadastrados</h3>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Chave</th>
+                <th>Nome do Médico</th>
+                <th>Data de Internação</th>
+                <th>Telefone de Contato</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var paciente in Model.Pacientes)
+            {
+                <tr data-chaves='@paciente.Chave'>
+                    <td>@paciente.Chave</td>
+                    <td>@paciente.NomeDoMedico</td>
+                    <td>@paciente.DataInternacao.ToShortDateString()</td>
+                    <td>@paciente.TelefoneContato</td>
+                    <td>
+                        <button class='btn btn-danger'
+                                data-chaves='@paciente.Chave'
+                                onclick='deletarPaciente(this)'>
+                            Deletar
+                        </button>
+                        <button class='btn btn-primary'
+                                data-chaves='@paciente.Chave'
+                                onclick='editarPaciente(this)'>
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarModalLabel">Editar Paciente</h5>
+                    <button type="button" class="close btn-danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                    <form id='formEditar'>
+                        
+                        <input type='hidden' name='Chave' id='editarChave' />
+                        <div class='form-group'>
+                            <label for='editarNomeMedico'>Nome do Médico:</label>
+                            <input type='text' class='form-control' id='editarNomeMedico' required />
+                        </div>
+                        <div class='form-group'>
+                            <label for='editarDataInternacao'>Data de Internação:</label>
+                            <input type='date' class='form-control' id='editarDataInternacao' required />
+                        </div>
+                        <div class='form-group'>
+                            <label for='editarTelefoneContato'>Telefone de Contato:</label>
+                            <input type='tel' class='form-control' id='editarTelefoneContato' required pattern="[0-9]{10,11}" />
+                        </div>
+
+                        <br />
+                        <button type='submit' class='btn btn-primary'>Salvar alterações</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js"></script>
+
+</div>
